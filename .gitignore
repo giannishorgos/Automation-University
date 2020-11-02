@@ -1,3 +1,4 @@
 #ignore all files that end in .log like geckodriver.log
 *.log
 #ignore text file
+*.txt
