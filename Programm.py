@@ -1,13 +1,5 @@
 from datetime import datetime
 
-def makeTxtFile(day, lecture, hour, link):
-    p = open("Program.txt", "a")
-    for i in range(len(hour)):
-        p.write(day+"    ")
-        p.write(lecture[i]+"    ")
-        p.write(hour[i]+"    ")
-        p.write(link[i]+ "\n")
-    p.close()
 
 class Program:
     def __init__(self, username):
@@ -32,10 +24,17 @@ class Program:
                     lecture.append(str(input("LECTURE: ")))
                     hour.append(str(input("Begins at: ")))
                     link.append(str(input("The link for the call is: ")))
-                    makeTxtFile(dic[i], lecture, hour, link)
+                    Program.makeTxtFile(dic[i], lecture, hour, link)
                     lecture.clear()
                     hour.clear()
                     link.clear()
-
-PRG = Program("username")
-PRG.getProgram()
+                    
+    @staticmethod
+    def makeTxtFile(day, lecture, hour, link):
+        p = open("Program.txt", "a")
+        for i in range(len(hour)):
+            p.write(day+"    ")
+            p.write(lecture[i]+"    ")
+            p.write(hour[i]+"    ")
+            p.write(link[i]+ "\n")
+        p.close()
