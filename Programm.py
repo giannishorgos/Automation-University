@@ -1,7 +1,13 @@
 from datetime import datetime
 
 def makeTxtFile(day, lecture, hour, link):
-    pass
+    p = open("Program.txt", "a")
+    for i in range(len(hour)):
+        p.write(day+"    ")
+        p.write(lecture[i]+"    ")
+        p.write(hour[i]+"    ")
+        p.write(link[i]+ "\n")
+    p.close()
 
 class Program:
     def __init__(self, username):
@@ -9,7 +15,6 @@ class Program:
 
     def getProgram(self):
         #mera, wra, mathhma kai link
-        day = ''
         hour = []
         lecture = []
         link = []
@@ -21,11 +26,16 @@ class Program:
             print(dic[i])
             while flag:      
                 choice = str(input("Do you want to add something? [Y/N]"))
-                if choice == 'Y' or choice == 'y':
+                if choice == 'N' or choice == 'n':
                     flag = False
                 else:
                     lecture.append(str(input("LECTURE: ")))
                     hour.append(str(input("Begins at: ")))
                     link.append(str(input("The link for the call is: ")))
+                    makeTxtFile(dic[i], lecture, hour, link)
+                    lecture.clear()
+                    hour.clear()
+                    link.clear()
 
-            makeTxtFile(dic[i], lecture, hour, link)
+PRG = Program("username")
+PRG.getProgram()
