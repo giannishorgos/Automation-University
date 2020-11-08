@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import *
 
 
 class Program:
@@ -24,17 +24,33 @@ class Program:
                     lecture.append(str(input("LECTURE: ")))
                     hour.append(str(input("Begins at: ")))
                     link.append(str(input("The link for the call is: ")))
-                    Program.makeTxtFile(dic[i], lecture, hour, link)
+                    Program.makeTxtFile(i, lecture, hour, link)
                     lecture.clear()
                     hour.clear()
                     link.clear()
                     
     @staticmethod
     def makeTxtFile(day, lecture, hour, link):
-        p = open("Program.txt", "a")
+        p = open("{self.username}.txt", "a") 
+
         for i in range(len(hour)):
-            p.write(day+"    ")
-            p.write(lecture[i]+"    ")
-            p.write(hour[i]+"    ")
-            p.write(link[i]+ "\n")
+            p.write(day + " ")
+            p.write(hour[i] + "    ")
+            p.write(lecture[i] + "    ")
+            p.write(link[i] + "\n")
         p.close()
+
+    def theRightLink(self):
+        day = datetime.today().weekday()
+        hour = datetime.now().hour
+        minutes = datetime.now().minute
+        txtFile = open("{self.username}.txt", "r")
+        flag = True
+
+        while flag:
+            line = txtFile.readline()
+            if line[0] == day:
+                if abs(int(line[2:4]) -  hour) <= 1 and abs(int(line[5:7]) - minutes) <= 30:
+                    flag = False
+                    begins = line.find("https")
+                    return line[begins : len(line)]
