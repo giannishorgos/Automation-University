@@ -1,9 +1,8 @@
 from selenium import webdriver
+import Programm
 
-zoom = webdriver.Firefox()
-
-program = Program("user")
-
-def openZoom():
-    zoom.get(program.theRightLink())
+def openZoom(program):
+    url = program.theRightLink()
+    zoom = webdriver.Firefox()
+    zoom.get(url)
     
