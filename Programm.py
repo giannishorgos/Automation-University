@@ -1,5 +1,5 @@
 from datetime import *
-
+import time
 
 class Program:
     def __init__(self, username):
@@ -41,16 +41,23 @@ class Program:
         p.close()
 
     def theRightLink(self):
-        day = datetime.today().weekday()
-        hour = datetime.now().hour
-        minutes = datetime.now().minute
-        txtFile = open("{self.username}.txt", "r")
+        txtFile = open("/home/giannis/Documents/Codes/Zoom Calls Automation/pl.txt", "r")
         flag = True
 
-        while flag:
+        i = 0
+        while flag: #trexei synexeia auth
+            day = datetime.today().weekday()
+            hour = datetime.now().hour
+            minutes = datetime.now().minute
             line = txtFile.readline()
-            if line[0] == day:
-                if abs(int(line[2:4]) -  hour) <= 1 and abs(int(line[5:7]) - minutes) <= 30:
+            if len(line) == 0:
+                txtFile.close()
+                txtFile = open("/home/giannis/Documents/Codes/Zoom Calls Automation/pl.txt", "r")
+                line = txtFile.readline()
+            
+            if int(line[0]) == day:
+                if abs(int(line[2:4]) -  hour) <= 1 and abs(int(line[5:7]) - minutes) <= 1:
                     flag = False
                     begins = line.find("https")
                     return line[begins : len(line)]
+            time.sleep(30)
