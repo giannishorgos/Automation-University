@@ -3,6 +3,9 @@ import Programm
 
 def openZoom(program):
     url = program.theRightLink()
-    zoom = webdriver.Firefox()
-    zoom.get(url)
+    if url != "":
+        zoom = webdriver.Firefox()
+        zoom.get(url)
+    else:
+        print('today you are FREE')
     
