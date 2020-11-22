@@ -67,6 +67,8 @@ def no(labelchoice, buttonNo, buttonYes):
     day += 1
     if day < 5:
         getProgram()
+    else:
+        begin()
 
 def start(start_, menu_):
     start_.pack_forget()
@@ -79,8 +81,6 @@ def start(start_, menu_):
     buttonOk = tk.Button(root, text="OK", command=lambda : getUsername(entryUsername, buttonOk, labelUsername))
     buttonOk.pack()
 
-    
-    #mia while edw prepei
 
 def menu(start_, menu_):
     #program.getProgram()
@@ -117,18 +117,19 @@ def getUsername(entryUsername, buttonOk, labelUsername, buttonGetProgram=None):
     else:
         openZoom(program)
 
+def begin():
+    start_ = tk.Button(root, text="Start", command=lambda : start(start_, menu_))
+    menu_ = tk.Button(root, text="Menu", command=lambda : menu(start_, menu_))
+    start_.pack()
+    menu_.pack()
 
 
 #Game-Loop
 root = tk.Tk()
-w = tk.Canvas(root, width=200, height=200)
 root.title("Zoom")
 program = Program()
-start_ = tk.Button(root, text="Start", command=lambda : start(start_, menu_))
-menu_ = tk.Button(root, text="Menu", command=lambda : menu(start_, menu_))
-start_.pack()
-menu_.pack()
-w.pack()
+
+begin()
 
 root.mainloop()
 
