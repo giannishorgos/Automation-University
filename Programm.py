@@ -29,6 +29,7 @@ class Program:
         currentDir = os.getcwd()
         txtFile = open(currentDir + "/" + self.username + ".txt", "r")
         flag = True
+        existDay = False
 
         i = 0
         while flag: #trexei synexeia auth
@@ -36,12 +37,19 @@ class Program:
             hour = datetime.now().hour
             minutes = datetime.now().minute
             line = txtFile.readline()
-            if len(line) == 0:
+
+            #if today exist in the program
+            if len(line) == 0 and existDay:
                 txtFile.close()
                 txtFile = open(currentDir + "/" + self.username + ".txt", "r")
                 line = txtFile.readline()
+
+            # if today is not in the program return an empty string
+            elif len(line) == 0:
+                return ""
             
             if int(line[0]) == day:
+                existDay = True
                 thour = (int(line[2:4]) -  hour)*60
                 tminutes =  int(line[5:7]) - minutes + thour
                 if tminutes <= 30 and abs((int(line[2:4]) -  hour)) <= 1:
